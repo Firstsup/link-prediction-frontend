@@ -1,0 +1,7 @@
+.graph {
+    height: 500px;
+    width: 600px;
+    background-color: white;
+    border-right: 2px solid #bfbfbf;
+    border-bottom: 2px solid #bfbfbf;
+}
