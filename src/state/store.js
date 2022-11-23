@@ -12,12 +12,12 @@ export const algorithmState = atom({
 
 export const node1State = atom({
     key: 'node1',
-    default: 0
+    default: 1
 })
 
 export const node2State = atom({
     key: 'node2',
-    default: 0
+    default: 2
 })
 
 export const matrixState = atom({

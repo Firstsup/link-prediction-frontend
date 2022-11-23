@@ -3,7 +3,7 @@ import * as d3 from "d3";
 import index from './index.module.css';
 import getGraph from '../../api/getGraph'
 import _ from 'lodash'
-import {blue, green} from "@ant-design/colors";
+import {blue, green, grey, purple, red} from "@ant-design/colors";
 import {node1State, node2State, datasetState} from '../../state/store';
 import {useRecoilState} from "recoil";
 
@@ -37,7 +37,7 @@ const ForceDirectedGraph = () => {
         gEdge.selectAll('line')
             .data(edges)
             .join('line')
-            .attr('id', (d, i) => `edge${i}`)
+            .attr('id', (d, i) => `edge${i + 1}`)
             .attr('x1', d => nodes[d.source.index].x)
             .attr('y1', d => nodes[d.source.index].y)
             .attr('x2', d => nodes[d.target.index].x)
@@ -93,7 +93,7 @@ const ForceDirectedGraph = () => {
         gNode.selectAll('circle')
             .data(nodes)
             .join('circle')
-            .attr('id', (d, i) => `node${i}`)
+            .attr('id', (d, i) => `node${i + 1}`)
             .attr("cx", d => d.x)
             .attr("cy", d => d.y)
             .attr("r", d => linear(d.degree))
@@ -119,16 +119,16 @@ const ForceDirectedGraph = () => {
                         .classed('temp', true)
                         .attr('x1', this.cx.animVal.value)
                         .attr('y1', this.cy.animVal.value)
-                        .attr('x2', d3.select(`#node${d - 1}`)._groups[0][0].cx.animVal.value)
-                        .attr('y2', d3.select(`#node${d - 1}`)._groups[0][0].cy.animVal.value)
+                        .attr('x2', d3.select(`#node${d}`)._groups[0][0].cx.animVal.value)
+                        .attr('y2', d3.select(`#node${d}`)._groups[0][0].cy.animVal.value)
                         .transition()
                         .duration(300)
                         .attr("stroke", blue[5])
                         .attr("stroke-width", 5)
                 })
                 neighbors.forEach(d => {
-                    gTop._groups[0][0].appendChild(d3.select(`#node${d - 1}`)._groups[0][0])
-                    d3.select(`#node${d - 1}`)
+                    gTop._groups[0][0].appendChild(d3.select(`#node${d}`)._groups[0][0])
+                    d3.select(`#node${d}`)
                         .transition()
                         .duration(300)
                         .attr('r', 8)
@@ -139,7 +139,7 @@ const ForceDirectedGraph = () => {
             .on('mouseout', function () {
                 gTop.selectAll('.temp').remove()
                 neighbors.forEach(d => {
-                    gNode._groups[0][0].appendChild(d3.select(`#node${d - 1}`)._groups[0][0])
+                    gNode._groups[0][0].appendChild(d3.select(`#node${d}`)._groups[0][0])
                 })
                 gNode._groups[0][0].appendChild(this)
                 gEdge.selectAll('line')
@@ -154,11 +154,11 @@ const ForceDirectedGraph = () => {
                     .attr('fill', green[6])
             })
             .on('click', function () {
-                changeNode1(parseInt(this.id.substring(4)) + 1)
+                changeNode1(parseInt(this.id.substring(4)))
             })
             .on('contextmenu', function (e) {
                 e.preventDefault()
-                changeNode2(parseInt(this.id.substring(4)) + 1)
+                changeNode2(parseInt(this.id.substring(4)))
             })
     }
     useEffect(() => {
@@ -214,6 +214,33 @@ const ForceDirectedGraph = () => {
                 .on('tick', ticked)
         }
     }, [nodes, edges])
+    useEffect(() => {
+        if (!_.isNil(d3.select(`#node${node1}`)._groups[0][0])) {
+            d3.selectAll('.temp').remove()
+            const node1Arc = d3.arc()
+                .innerRadius(d3.select(`#node${node1}`)._groups[0][0].r.animVal.value + 1)
+                .outerRadius(d3.select(`#node${node1}`)._groups[0][0].r.animVal.value + 6)
+                .startAngle(0)
+                .endAngle(Math.PI * 2)
+            const node2Arc = d3.arc()
+                .innerRadius(d3.select(`#node${node2}`)._groups[0][0].r.animVal.value + 1)
+                .outerRadius(d3.select(`#node${node2}`)._groups[0][0].r.animVal.value + 6)
+                .startAngle(0)
+                .endAngle(Math.PI * 2)
+            d3.select(d3.select(`#node${node1}`)._groups[0][0].parentElement.parentElement)
+                .append('path')
+                .classed('temp', true)
+                .attr('d', node1Arc)
+                .attr('fill', red[3])
+                .attr('transform', `translate(${d3.select(`#node${node1}`)._groups[0][0].cx.animVal.value}, ${d3.select(`#node${node1}`)._groups[0][0].cy.animVal.value})`)
+            d3.select(d3.select(`#node${node2}`)._groups[0][0].parentElement.parentElement)
+                .append('path')
+                .classed('temp', true)
+                .attr('d', node2Arc)
+                .attr('fill', purple[5])
+                .attr('transform', `translate(${d3.select(`#node${node2}`)._groups[0][0].cx.animVal.value}, ${d3.select(`#node${node2}`)._groups[0][0].cy.animVal.value})`)
+        }
+    }, [node1, node2])
     return (
         <div className={index.graph} id={'forceDirectedGraph'}/>
     )

@@ -10,3 +10,13 @@
 .search {
     margin-bottom: 10px;
 }
+
+.title {
+    display: inline;
+}
+
+.switch {
+    display: inline;
+    float: right;
+    transform: translate(-10px, 7px);
+}
