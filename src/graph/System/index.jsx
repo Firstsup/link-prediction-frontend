@@ -6,6 +6,7 @@ import StatisticsGraph from "../StatisticsGraph";
 import index from './index.module.css';
 import AnalysisGraph from "../AnalysisGraph";
 import DegreeDistributionGraph from "../DegreeDistributionGraph";
+import AUCPrecisionGraph from "../AUCPrecisionGraph";
 
 const System = () => {
     return (
@@ -22,7 +23,10 @@ const System = () => {
             <div className={index.degreeDistributionGraph}>
                 <DegreeDistributionGraph/>
             </div>
-            <div className={index.occupancy}>
+            <div className={index.AUCPrecisionGraph}>
+                <AUCPrecisionGraph/>
+            </div>
+            <div className={index.analysisGraph}>
                 <AnalysisGraph/>
             </div>
             <div className={index.console}>

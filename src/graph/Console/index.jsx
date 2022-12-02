@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Input, Typography, Divider, Table, Switch} from 'antd';
+import {Input, Typography, Divider, Table, Switch, Segmented, Radio, Checkbox} from 'antd';
 import index from './index.module.css'
 import {node1State, node2State, datasetState, algorithmState, matrixState} from "../../state/store";
 import {useRecoilState} from "recoil";
 import getMatrix from "../../api/getMatrix";
 import * as d3 from "d3";
+import {AimOutlined, GlobalOutlined} from '@ant-design/icons'
+import getGraph from "../../api/getGraph";
 
 const Console = () => {
     const [node1, setNode1] = useRecoilState(node1State)
@@ -14,16 +16,31 @@ const Console = () => {
     const [matrix, setMatrix] = useRecoilState(matrixState)
     const [allTableData, setAllTableData] = useState()
     const [node1TableData, setNode1TableData] = useState()
-    const [switchChecked, setSwitchChecked] = useState(true)
+    const [segmentedValue, setSegmentedValue] = useState('All')
+    const [checkboxValue, setCheckboxValue] = useState(false)
     const changeNode1 = (value) => {
         setNode1(value)
     }
     const changeNode2 = (value) => {
         setNode2(value)
     }
-    const changeSwitch = (checked) => {
-        setSwitchChecked(checked)
+    const changeSegmented = (value) => {
+        setSegmentedValue(value)
     }
+    const changeCheckbox = (e) => {
+        setCheckboxValue(e.target.checked)
+    }
+    const segmentedOptions = [
+        {
+            label: 'All',
+            value: 'All',
+            icon: <GlobalOutlined/>
+        },
+        {
+            label: 'Node1',
+            value: 'Node1',
+            icon: <AimOutlined/>
+        }]
     const allColumns = [
         {
             title: 'Ranking',
@@ -108,22 +125,46 @@ const Console = () => {
                         return b[2] - a[2]
                     })
                     const tempAllTableData = []
-                    for (let i = 0; i < 12; i++) {
-                        tempAllTableData.push({
-                            key: `${i + 1}`,
-                            ranking: `${i + 1}`,
-                            node1: sortArr[i][0],
-                            node2: sortArr[i][1],
-                            score: sortArr[i][2]
-                        })
+                    if (checkboxValue) {
+                        getGraph(dataset).then(
+                            res => {
+                                if (res.code === 1) {
+                                    let graph = res.data.graph
+                                    let count = 0
+                                    for (let i = 0; i < sortArr.length && count < 12; i++) {
+                                        if (!graph[sortArr[i][0] - 1].edge.includes(sortArr[i][1])) {
+                                            tempAllTableData.push({
+                                                key: `${count + 1}`,
+                                                ranking: `${count + 1}`,
+                                                node1: sortArr[i][0],
+                                                node2: sortArr[i][1],
+                                                score: sortArr[i][2]
+                                            })
+                                            count++
+                                        }
+                                    }
+                                    setAllTableData(tempAllTableData)
+                                }
+                            }
+                        )
+                    } else {
+                        for (let i = 0; i < 12; i++) {
+                            tempAllTableData.push({
+                                key: `${i + 1}`,
+                                ranking: `${i + 1}`,
+                                node1: sortArr[i][0],
+                                node2: sortArr[i][1],
+                                score: Number.isInteger(sortArr[i][2]) ? sortArr[i][2] : sortArr[i][2].toFixed(3 )
+                            })
+                        }
+                        setAllTableData(tempAllTableData)
                     }
-                    setAllTableData(tempAllTableData)
                 } else {
                     console.log(`控制台 API 报错，错误原因为${res.message}`)
                 }
             }
         )
-    }, [dataset, algorithm])
+    }, [dataset, algorithm, checkboxValue])
     useEffect(() => {
         getMatrix(dataset, algorithm).then(
             res => {
@@ -142,37 +183,60 @@ const Console = () => {
                         return b[1] - a[1]
                     })
                     const tempNode1TableData = []
-                    for (let i = 0; i < 12; i++) {
-                        tempNode1TableData.push({
-                            key: `${i + 1}`,
-                            ranking: `${i + 1}`,
-                            node1: node1,
-                            node2: sortArr[i][0],
-                            score: sortArr[i][1]
-                        })
+                    if (checkboxValue) {
+                        getGraph(dataset).then(
+                            res => {
+                                if (res.code === 1) {
+                                    let graph = res.data.graph
+                                    let count = 0
+                                    for (let i = 0; i < sortArr.length && count < 12; i++) {
+                                        if (!graph[node1 - 1].edge.includes(sortArr[i][0])) {
+                                            tempNode1TableData.push({
+                                                key: `${count + 1}`,
+                                                ranking: `${count + 1}`,
+                                                node1: node1,
+                                                node2: sortArr[i][0],
+                                                score: sortArr[i][1]
+                                            })
+                                            count++
+                                        }
+                                    }
+                                    setNode1TableData(tempNode1TableData)
+                                }
+                            }
+                        )
+                    } else {
+                        for (let i = 0; i < 12; i++) {
+                            tempNode1TableData.push({
+                                key: `${i + 1}`,
+                                ranking: `${i + 1}`,
+                                node1: node1,
+                                node2: sortArr[i][0],
+                                score: Number.isInteger(sortArr[i][1]) ? sortArr[i][1] : sortArr[i][1].toFixed(3)
+                            })
+                        }
+                        setNode1TableData(tempNode1TableData)
                     }
-                    setNode1TableData(tempNode1TableData)
                 } else {
                     console.log(`控制台 API 报错，错误原因为${res.message}`)
                 }
             }
         )
-    }, [dataset, algorithm, node1])
+    }, [dataset, algorithm, node1, checkboxValue])
     return (
         <div className={index.console}>
             <Typography.Title level={3} className={index.title}>Console</Typography.Title>
-            <Switch
-                className={index.switch}
-                checkedChildren={'All'}
-                unCheckedChildren={'Node1'}
-                defaultChecked
-                onChange={changeSwitch}
+            <Segmented
+                className={index.segmented}
+                options={segmentedOptions}
+                value={segmentedValue}
+                onChange={changeSegmented}
             />
             <Divider/>
             <Input.Search className={index.search} onSearch={changeNode1} addonBefore={'Node1 '}/>
             <Input.Search onSearch={changeNode2} addonBefore={'Node2 '}/>
             <Divider/>
-            {switchChecked ?
+            {segmentedValue === 'All' ?
                 <Table
                     columns={allColumns}
                     dataSource={allTableData}
@@ -189,6 +253,11 @@ const Console = () => {
                     size={'middle'}
                     rowSelection={rowSelection}
                 />}
+            <Checkbox
+                className={index.checkbox}
+                checked={checkboxValue}
+                onChange={changeCheckbox}
+            />
         </div>
     )
 }

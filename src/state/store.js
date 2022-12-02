@@ -1,13 +1,14 @@
 import {atom} from "recoil";
+import {DATASETS, ALGORITHMS} from "../constants";
 
 export const datasetState = atom({
     key: 'dataset',
-    default: 'football'
+    default: DATASETS[0]
 })
 
 export const algorithmState = atom({
     key: 'algorithm',
-    default: 'CN'
+    default: ALGORITHMS[0]
 })
 
 export const node1State = atom({
@@ -22,5 +23,15 @@ export const node2State = atom({
 
 export const matrixState = atom({
     key: 'matrix',
+    default: []
+})
+
+export const nodesState = atom({
+    key: 'nodes',
+    default: []
+})
+
+export const edgesState = atom({
+    key: 'edges',
     default: []
 })

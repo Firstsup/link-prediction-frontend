@@ -15,8 +15,13 @@
     display: inline;
 }
 
-.switch {
+.segmented {
     display: inline;
     float: right;
-    transform: translate(-10px, 7px);
+    transform: translate(-10px, 4px);
+}
+
+.checkbox {
+    position: absolute;
+    transform: translate(9px, -598px);
 }

@@ -3,22 +3,24 @@ import * as d3 from "d3";
 import index from './index.module.css';
 import getGraph from '../../api/getGraph'
 import _ from 'lodash'
-import {blue, green, grey, purple, red} from "@ant-design/colors";
-import {node1State, node2State, datasetState} from '../../state/store';
+import {blue, geekblue, green, purple, red} from "@ant-design/colors";
+import {node1State, node2State, datasetState, nodesState, edgesState} from '../../state/store';
 import {useRecoilState} from "recoil";
 
 const ForceDirectedGraph = () => {
     const [dataset, setDataset] = useRecoilState(datasetState)
     const [node1, setNode1] = useRecoilState(node1State)
     const [node2, setNode2] = useRecoilState(node2State)
+    const [nodes, setNodes] = useRecoilState(nodesState)
+    const [edges, setEdges] = useRecoilState(edgesState)
     const changeNode1 = (value) => {
         setNode1(value)
     }
     const changeNode2 = (value) => {
         setNode2(value)
     }
-    const [nodes, setNodes] = useState()
-    const [edges, setEdges] = useState()
+    const [thisNodes, setThisNodes] = useState()
+    const [thisEdges, setThisEdges] = useState()
     const [minDegree, setMinDegree] = useState()
     const [maxDegree, setMaxDegree] = useState()
     const width = 600
@@ -28,20 +30,26 @@ const ForceDirectedGraph = () => {
     let gEdge
     let gNode
     let gTop
+    let time = 0
     const ticked = () => {
+        time++
+        if (time === 300) {
+            setNodes(thisNodes)
+            setEdges(thisEdges)
+        }
         gTop.selectAll('*').remove()
         let neighbors
         const linear = d3.scaleLinear()
             .domain([minDegree, maxDegree])
             .range([4, 8])
         gEdge.selectAll('line')
-            .data(edges)
+            .data(thisEdges)
             .join('line')
             .attr('id', (d, i) => `edge${i + 1}`)
-            .attr('x1', d => nodes[d.source.index].x)
-            .attr('y1', d => nodes[d.source.index].y)
-            .attr('x2', d => nodes[d.target.index].x)
-            .attr('y2', d => nodes[d.target.index].y)
+            .attr('x1', d => thisNodes[d.source.index].x)
+            .attr('y1', d => thisNodes[d.source.index].y)
+            .attr('x2', d => thisNodes[d.target.index].x)
+            .attr('y2', d => thisNodes[d.target.index].y)
             .attr("stroke", blue[3])
             .on('mouseover', function () {
                 gEdge.selectAll('line')
@@ -91,7 +99,7 @@ const ForceDirectedGraph = () => {
                     .attr('fill', green[6])
             })
         gNode.selectAll('circle')
-            .data(nodes)
+            .data(thisNodes)
             .join('circle')
             .attr('id', (d, i) => `node${i + 1}`)
             .attr("cx", d => d.x)
@@ -113,7 +121,7 @@ const ForceDirectedGraph = () => {
                     .transition()
                     .duration(300)
                     .attr('stroke', blue[1])
-                neighbors = nodes[this.__data__.index].neighbor
+                neighbors = thisNodes[this.__data__.index].neighbor
                 neighbors.forEach(d => {
                     gTop.append('line')
                         .classed('temp', true)
@@ -181,8 +189,8 @@ const ForceDirectedGraph = () => {
                             tempEdges.push({"source": d1.vertex, "target": d2})
                         })
                     })
-                    setNodes(tempNodes)
-                    setEdges(tempEdges)
+                    setThisNodes(tempNodes)
+                    setThisEdges(tempEdges)
                     setMaxDegree(tempMaxDegree)
                     setMinDegree(tempMinDegree)
                 } else {
@@ -205,15 +213,15 @@ const ForceDirectedGraph = () => {
         forceDirectedSvg.call(d3.zoom().on('zoom', (e) => {
             forceDirectedG.attr('transform', e.transform)
         }))
-        if (!_.isUndefined(nodes) && !_.isUndefined(edges)) {
-            d3.forceSimulation(nodes)
+        if (!_.isUndefined(thisNodes) && !_.isUndefined(thisEdges)) {
+            d3.forceSimulation(thisNodes)
                 .force("charge", d3.forceManyBody().strength(-100))
-                .force("link", d3.forceLink(edges).id(d => d.id))
+                .force("link", d3.forceLink(thisEdges).id(d => d.id))
                 .force("center", d3.forceCenter(width / 2, height / 2))
                 .force("collide", d3.forceCollide(d => d.degree))
                 .on('tick', ticked)
         }
-    }, [nodes, edges])
+    }, [thisNodes, thisEdges])
     useEffect(() => {
         if (!_.isNil(d3.select(`#node${node1}`)._groups[0][0])) {
             d3.selectAll('.temp').remove()
@@ -231,7 +239,7 @@ const ForceDirectedGraph = () => {
                 .append('path')
                 .classed('temp', true)
                 .attr('d', node1Arc)
-                .attr('fill', red[3])
+                .attr('fill', geekblue[5])
                 .attr('transform', `translate(${d3.select(`#node${node1}`)._groups[0][0].cx.animVal.value}, ${d3.select(`#node${node1}`)._groups[0][0].cy.animVal.value})`)
             d3.select(d3.select(`#node${node2}`)._groups[0][0].parentElement.parentElement)
                 .append('path')

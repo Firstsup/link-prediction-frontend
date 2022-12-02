@@ -3,10 +3,12 @@
     height: 900px;
     display: grid;
     grid-template-columns: 340px 260px 890px 300px;
-    grid-template-rows: 55px 500px 345px;
+    grid-template-rows: 55px 80px 420px 45px 300px;
     grid-template-areas: "a a a a"
+                         "b b g f"
                          "b b e f"
-                         "c d e f";
+                         "c d e f"
+                         "c d h f";
 }
 
 .title {
@@ -25,7 +27,11 @@
     grid-area: d;
 }
 
-.occupancy {
+.AUCPrecisionGraph {
+    grid-area: g;
+}
+
+.analysisGraph {
     grid-area: e;
 }
 
