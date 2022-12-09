@@ -1,22 +1,22 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import * as d3 from "d3";
 import index from './index.module.css';
 import {useRecoilState} from "recoil";
-import {edgesState, node1State, node2State, nodesState} from "../../state/store";
-import {Input} from "antd";
+import {algorithmState, edgesState, hoverState, node1State, node2State, nodesState} from "../../state/store";
 import _ from 'lodash'
 import {blue, cyan, geekblue, gold, green, grey, purple, red, volcano} from "@ant-design/colors";
 
 const AnalysisGraph = () => {
-    const [node1, setNode1] = useRecoilState(node1State)
-    const [node2, setNode2] = useRecoilState(node2State)
-    const [nodes, setNodes] = useRecoilState(nodesState)
-    const [edges, setEdges] = useRecoilState(edgesState)
-    const [thisNodes, setThisNodes] = useState()
-    const [thisEdges, setThisEdges] = useState()
+    const [node1] = useRecoilState(node1State)
+    const [node2] = useRecoilState(node2State)
+    const [nodes] = useRecoilState(nodesState)
+    const [edges] = useRecoilState(edgesState)
+    const [hover] = useRecoilState(hoverState)
+    const [algorithm] = useRecoilState(algorithmState)
     const width = 890
     const height = 465
     let analysisSvg
+    let gBottom
     useEffect(() => {
         if (nodes.length !== 0 && edges.length !== 0) {
             d3.select('#analysisGraph').selectAll('*').remove()
@@ -25,6 +25,7 @@ const AnalysisGraph = () => {
                 .attr("width", width)
                 .attr("height", height)
                 .attr('viewBox', [0, 0, width, height])
+            gBottom = analysisSvg.append('g')
             let minDegree = Number.MAX_VALUE
             let maxDegree = 0
             nodes.forEach(d => {
@@ -35,8 +36,6 @@ const AnalysisGraph = () => {
                     minDegree = d.degree
                 }
             })
-            console.log(nodes)
-            console.log(edges)
             const sizeLinear1 = d3.scaleLinear()
                 .domain([minDegree, maxDegree])
                 .range([8, 25])
@@ -269,7 +268,7 @@ const AnalysisGraph = () => {
                     .endAngle(2 * Math.PI)
                 analysisSvg.append('path')
                     .attr('d', thisNodeArc1)
-                    .attr('fill', geekblue[1])
+                    .attr('fill', geekblue[2])
                     .attr('transform', `translate(${i < Math.ceil(node1Neighbor3.length / 2) ? (30 + (i + 1) * node1LeftSpace) : (width / 2 + 21 + sizeLinear1(nodes[node1 - 1].degree) + (i - Math.ceil(node1Neighbor3.length / 2) + 1) * node1RightSpace)}, ${140 - node1HeightLinear(node1Neighbor3Distance[i])})`)
                 analysisSvg.append('path')
                     .attr('d', thisNodeArc2)
@@ -288,6 +287,13 @@ const AnalysisGraph = () => {
                     .attr('y2', 140 + sizeLinear2(nodes[node1Neighbor3[i] - 1].degree) - node1HeightLinear(node1Neighbor3Distance[i]))
                     .attr('stroke', red[3])
                     .attr('stroke-width', 5)
+                analysisSvg.append('circle')
+                    .attr('cx', i < Math.ceil(node1Neighbor3.length / 2) ? (30 + (i + 1) * node1LeftSpace) : (width / 2 + 21 + sizeLinear1(nodes[node1 - 1].degree) + (i - Math.ceil(node1Neighbor3.length / 2) + 1) * node1RightSpace))
+                    .attr('cy', 140 - node1HeightLinear(node1Neighbor3Distance[i]))
+                    .attr('r', sizeLinear2(nodes[node1Neighbor3[i] - 1].degree))
+                    .attr('fill', 'none')
+                    .attr('stroke', [1].includes(hover) ? green[4] : 'none')
+                    .attr('stroke-width', 3)
             }
             const node2LeftSpace = (width / 2 - 21 - sizeLinear1(nodes[node2 - 1].degree) - 30) / (Math.ceil(node2Neighbor3.length / 2) + 1)
             const node2RightSpace = (860 - (width / 2 + 21 + sizeLinear1(nodes[node2 - 1].degree))) / (Math.floor(node2Neighbor3.length / 2) + 1)
@@ -323,7 +329,7 @@ const AnalysisGraph = () => {
                     .endAngle(2 * Math.PI)
                 analysisSvg.append('path')
                     .attr('d', thisNodeArc1)
-                    .attr('fill', purple[1])
+                    .attr('fill', purple[2])
                     .attr('transform', `translate(${i < Math.ceil(node2Neighbor3.length / 2) ? (30 + (i + 1) * node2LeftSpace) : (width / 2 + 21 + sizeLinear1(nodes[node2 - 1].degree) + (i - Math.ceil(node2Neighbor3.length / 2) + 1) * node2RightSpace)}, ${320 + node2HeightLinear(node2Neighbor3Distance[i])})`)
                 analysisSvg.append('path')
                     .attr('d', thisNodeArc2)
@@ -342,6 +348,13 @@ const AnalysisGraph = () => {
                     .attr('y2', 320 - sizeLinear2(nodes[node2Neighbor3[i] - 1].degree) + node2HeightLinear(node2Neighbor3Distance[i]))
                     .attr('stroke', red[3])
                     .attr('stroke-width', 5)
+                analysisSvg.append('circle')
+                    .attr('cx', i < Math.ceil(node2Neighbor3.length / 2) ? (30 + (i + 1) * node2LeftSpace) : (width / 2 + 21 + sizeLinear1(nodes[node2 - 1].degree) + (i - Math.ceil(node2Neighbor3.length / 2) + 1) * node2RightSpace))
+                    .attr('cy', 320 + node2HeightLinear(node2Neighbor3Distance[i]))
+                    .attr('r', sizeLinear2(nodes[node2Neighbor3[i] - 1].degree))
+                    .attr('fill', 'none')
+                    .attr('stroke', [2].includes(hover) ? green[4] : 'none')
+                    .attr('stroke-width', 3)
             }
             const node1Neighbor12 = _.concat(node1Neighbor1, node1Neighbor2)
             const centerLeftSpace = (width / 2 - 21 - sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) - 30) / (Math.ceil(node1Neighbor12.length / 2) + 1)
@@ -356,12 +369,115 @@ const AnalysisGraph = () => {
             for (let i = 0; i < node1Neighbor12.length; i++) {
                 centerY.push(180 * (centerDistance1[i] / (centerDistance1[i] + centerDistance2[i])))
             }
+            let min = Number.MAX_VALUE
+            let max = 0
+            node1Neighbor12.forEach(d => {
+                min = Math.min(min, 1 / nodes[d - 1].neighbor.length)
+                max = Math.max(max, 1 / nodes[d - 1].neighbor.length)
+            })
+            console.log(min)
+            console.log(max)
+            const strokeLinear = d3.scaleLinear()
+                .domain([min, max])
+                .range([3, 7])
             for (let i = 0; i < node1Neighbor12.length; i++) {
-                analysisSvg.append('circle')
-                    .attr('cx', i < Math.ceil(node1Neighbor12.length / 2) ? (30 + (i + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (i - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace))
-                    .attr('cy', 140 + centerY[i])
-                    .attr('r', sizeLinear2(nodes[node1Neighbor12[i] - 1].degree))
+                const thisNodeNeighbors = nodes[node1Neighbor12[i] - 1].neighbor
+                const thisNodeNeighbor1 = []
+                const thisNodeNeighbor2 = []
+                const thisNodeNeighbor3 = []
+                thisNodeNeighbors.forEach(d => {
+                    if (nodes[d - 1].neighbor.includes(node1) && nodes[d - 1].neighbor.includes(node2)) {
+                        thisNodeNeighbor1.push(d)
+                    } else if (nodes[d - 1].neighbor.includes(node1)) {
+                        thisNodeNeighbor2.push(d)
+                    } else if (nodes[d - 1].neighbor.includes(node2)) {
+                        thisNodeNeighbor3.push(d)
+                    }
+                })
+                const thisNodeArc1 = d3.arc()
+                    .innerRadius(0)
+                    .outerRadius(sizeLinear2(nodes[node1Neighbor12[i] - 1].degree))
+                    .startAngle(0)
+                    .endAngle(2 * Math.PI * (thisNodeNeighbor1.length / nodes[node1Neighbor12[i] - 1].degree))
+                const thisNodeArc2 = d3.arc()
+                    .innerRadius(0)
+                    .outerRadius(sizeLinear2(nodes[node1Neighbor12[i] - 1].degree))
+                    .startAngle(2 * Math.PI * (thisNodeNeighbor1.length / nodes[node1Neighbor12[i] - 1].degree))
+                    .endAngle(2 * Math.PI * ((thisNodeNeighbor1.length + thisNodeNeighbor2.length) / nodes[node1Neighbor12[i] - 1].degree))
+                const thisNodeArc3 = d3.arc()
+                    .innerRadius(0)
+                    .outerRadius(sizeLinear2(nodes[node1Neighbor12[i] - 1].degree))
+                    .startAngle(2 * Math.PI * ((thisNodeNeighbor1.length + thisNodeNeighbor2.length) / nodes[node1Neighbor12[i] - 1].degree))
+                    .endAngle(2 * Math.PI * ((thisNodeNeighbor1.length + thisNodeNeighbor2.length + thisNodeNeighbor3.length) / nodes[node1Neighbor12[i] - 1].degree))
+                const thisNodeArc4 = d3.arc()
+                    .innerRadius(0)
+                    .outerRadius(sizeLinear2(nodes[node1Neighbor12[i] - 1].degree))
+                    .startAngle(2 * Math.PI * ((thisNodeNeighbor1.length + thisNodeNeighbor2.length + thisNodeNeighbor3.length) / nodes[node1Neighbor12[i] - 1].degree))
+                    .endAngle(2 * Math.PI)
+                const appendLine = () => {
+                    for (let j = 0; j < node1Neighbor12.length; j++) {
+                        if (nodes[node1Neighbor12[i] - 1].neighbor.includes(node1Neighbor12[j])) {
+                            gBottom.append('line')
+                                .classed('temp', true)
+                                .attr('x1', i < Math.ceil(node1Neighbor12.length / 2) ? (30 + (i + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (i - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace))
+                                .attr('y1', 140 + centerY[i])
+                                .attr('x2', j < Math.ceil(node1Neighbor12.length / 2) ? (30 + (j + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (j - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace))
+                                .attr('y2', 140 + centerY[j])
+                                .transition()
+                                .duration(200)
+                                .attr('stroke', gold[2])
+                                .attr('stroke-width', 3)
+                        }
+                    }
+                }
+                analysisSvg.append('path')
+                    .attr('d', thisNodeArc1)
+                    .attr('fill', '#E0E0FF')
+                    .attr('transform', `translate(${i < Math.ceil(node1Neighbor12.length / 2) ? (30 + (i + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (i - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace)}, ${140 + centerY[i]})`)
+                    .on('mouseover', function () {
+                        d3.select(this)
+                            .style('cursor', 'pointer')
+                        appendLine()
+                    })
+                    .on('mouseout', function () {
+                        gBottom.selectAll('.temp').remove()
+                    })
+                analysisSvg.append('path')
+                    .attr('d', thisNodeArc2)
+                    .attr('fill', geekblue[2])
+                    .attr('transform', `translate(${i < Math.ceil(node1Neighbor12.length / 2) ? (30 + (i + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (i - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace)}, ${140 + centerY[i]})`)
+                    .on('mouseover', function () {
+                        d3.select(this)
+                            .style('cursor', 'pointer')
+                        appendLine()
+                    })
+                    .on('mouseout', function () {
+                        gBottom.selectAll('.temp').remove()
+                    })
+                analysisSvg.append('path')
+                    .attr('d', thisNodeArc3)
                     .attr('fill', purple[2])
+                    .attr('transform', `translate(${i < Math.ceil(node1Neighbor12.length / 2) ? (30 + (i + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (i - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace)}, ${140 + centerY[i]})`)
+                    .on('mouseover', function () {
+                        d3.select(this)
+                            .style('cursor', 'pointer')
+                        appendLine()
+                    })
+                    .on('mouseout', function () {
+                        gBottom.selectAll('.temp').remove()
+                    })
+                analysisSvg.append('path')
+                    .attr('d', thisNodeArc4)
+                    .attr('fill', volcano[1])
+                    .attr('transform', `translate(${i < Math.ceil(node1Neighbor12.length / 2) ? (30 + (i + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (i - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace)}, ${140 + centerY[i]})`)
+                    .on('mouseover', function () {
+                        d3.select(this)
+                            .style('cursor', 'pointer')
+                        appendLine()
+                    })
+                    .on('mouseout', function () {
+                        gBottom.selectAll('.temp').remove()
+                    })
                 analysisSvg.append('text')
                     .attr('x', i < Math.ceil(node1Neighbor12.length / 2) ? (30 + (i + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (i - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace))
                     .attr('y', 145 + centerY[i])
@@ -374,21 +490,44 @@ const AnalysisGraph = () => {
                     .attr('x2', i < Math.ceil(node1Neighbor12.length / 2) ? (30 + (i + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (i - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace))
                     .attr('y2', 140 + centerY[i] - sizeLinear2(nodes[node1Neighbor12[i] - 1].degree))
                     .attr('stroke', cyan[3])
-                    .attr('stroke-width', 5)
+                    .attr('stroke-width', ['RA'].includes(algorithm) ? strokeLinear(1 / nodes[node1Neighbor12[i] - 1].neighbor.length) : 5)
                 analysisSvg.append('line')
                     .attr('x1', i < Math.ceil(node1Neighbor12.length / 2) ? (30 + (i + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (i - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace))
                     .attr('y1', 320)
                     .attr('x2', i < Math.ceil(node1Neighbor12.length / 2) ? (30 + (i + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (i - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace))
                     .attr('y2', 140 + centerY[i] + sizeLinear2(nodes[node1Neighbor12[i] - 1].degree))
                     .attr('stroke', cyan[3])
-                    .attr('stroke-width', 5)
+                    .attr('stroke-width', ['RA'].includes(algorithm) ? strokeLinear(1 / nodes[node1Neighbor12[i] - 1].neighbor.length) : 5)
+                analysisSvg.append('circle')
+                    .attr('cx', i < Math.ceil(node1Neighbor12.length / 2) ? (30 + (i + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (i - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace))
+                    .attr('cy', 140 + centerY[i])
+                    .attr('r', sizeLinear2(nodes[node1Neighbor12[i] - 1].degree))
+                    .attr('fill', 'none')
+                    .attr('stroke', [1, 2, 3].includes(hover) ? green[4] : 'none')
+                    .attr('stroke-width', 3)
+                if (algorithm === 'RA') {
+                    analysisSvg.append('text')
+                        .attr('x', i < Math.ceil(node1Neighbor12.length / 2) ? (30 + (i + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (i - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace))
+                        .attr('y', 145 + centerY[i])
+                        .attr('text-anchor', 'middle')
+                        .attr('font-family', 'sans-serif')
+                        .attr('transform', 'translate(20, -25)')
+                        .text(`1/${nodes[node1Neighbor12[i] - 1].neighbor.length}`)
+                }
+                if ([3].includes(hover) && algorithm !== 'RA') {
+                    analysisSvg.append('text')
+                        .attr('x', i < Math.ceil(node1Neighbor12.length / 2) ? (30 + (i + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (i - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace))
+                        .attr('y', 145 + centerY[i])
+                        .attr('text-anchor', 'middle')
+                        .attr('font-family', 'sans-serif')
+                        .attr('transform', 'translate(0, -30)')
+                        .text(`k = ${nodes[node1Neighbor12[i] - 1].neighbor.length}`)
+                }
             }
         }
-    }, [nodes, edges, node1, node2])
+    }, [nodes, edges, node1, node2, hover])
     return (
-        <>
-            <div className={index.graph} id={'analysisGraph'}/>
-        </>
+        <div className={index.graph} id={'analysisGraph'}/>
     )
 }
 

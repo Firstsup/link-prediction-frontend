@@ -1,6 +1,6 @@
-const f = async (datasetName) => {
+const f = async (datasetName, a, b) => {
     return(
-        await fetch(`/api/getAUCPrecision?datasetName=${datasetName}`, {
+        await fetch(`/api/getAUCPrecision?datasetName=${datasetName}&a=${a}&b=${b}`, {
             method: 'get',
             headers: {
                 'Accept': 'application/json',

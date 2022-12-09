@@ -1,19 +1,20 @@
 import React, {useEffect, useState} from 'react';
-import {Input, Typography, Divider, Table, Switch, Segmented, Radio, Checkbox} from 'antd';
+import {Input, Typography, Divider, Table, Segmented, Checkbox} from 'antd';
 import index from './index.module.css'
-import {node1State, node2State, datasetState, algorithmState, matrixState} from "../../state/store";
+import {node1State, node2State, datasetState, algorithmState, matrixState, aState, bState} from "../../state/store";
 import {useRecoilState} from "recoil";
 import getMatrix from "../../api/getMatrix";
-import * as d3 from "d3";
 import {AimOutlined, GlobalOutlined} from '@ant-design/icons'
 import getGraph from "../../api/getGraph";
 
 const Console = () => {
     const [node1, setNode1] = useRecoilState(node1State)
-    const [node2, setNode2] = useRecoilState(node2State)
-    const [dataset, setDataset] = useRecoilState(datasetState)
-    const [algorithm, setAlgorithm] = useRecoilState(algorithmState)
-    const [matrix, setMatrix] = useRecoilState(matrixState)
+    const [, setNode2] = useRecoilState(node2State)
+    const [dataset] = useRecoilState(datasetState)
+    const [algorithm] = useRecoilState(algorithmState)
+    const [, setMatrix] = useRecoilState(matrixState)
+    const [a] = useRecoilState(aState)
+    const [b] = useRecoilState(bState)
     const [allTableData, setAllTableData] = useState()
     const [node1TableData, setNode1TableData] = useState()
     const [segmentedValue, setSegmentedValue] = useState('All')
@@ -110,7 +111,7 @@ const Console = () => {
         }
     }
     useEffect(() => {
-        getMatrix(dataset, algorithm).then(
+        getMatrix(dataset, algorithm, a, b).then(
             res => {
                 if (res.code === 1) {
                     const matrix = res.data.matrix
@@ -164,9 +165,9 @@ const Console = () => {
                 }
             }
         )
-    }, [dataset, algorithm, checkboxValue])
+    }, [dataset, algorithm, checkboxValue, a, b])
     useEffect(() => {
-        getMatrix(dataset, algorithm).then(
+        getMatrix(dataset, algorithm, a, b).then(
             res => {
                 if (res.code === 1) {
                     const matrix = res.data.matrix
@@ -222,7 +223,7 @@ const Console = () => {
                 }
             }
         )
-    }, [dataset, algorithm, node1, checkboxValue])
+    }, [dataset, algorithm, node1, checkboxValue, a, b])
     return (
         <div className={index.console}>
             <Typography.Title level={3} className={index.title}>Console</Typography.Title>

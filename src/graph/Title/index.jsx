@@ -6,8 +6,8 @@ import {useRecoilState} from "recoil";
 import {DATASETS, ALGORITHMS} from "../../constants";
 
 const Title = () => {
-    const [dataset, setDataset] = useRecoilState(datasetState)
-    const [algorithm, setAlgorithm] = useRecoilState(algorithmState)
+    const [, setDataset] = useRecoilState(datasetState)
+    const [, setAlgorithm] = useRecoilState(algorithmState)
     const handleDatasetChange = (value) => {
         setDataset(value)
     }

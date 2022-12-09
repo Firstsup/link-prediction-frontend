@@ -2,24 +2,25 @@ import React, {useEffect, useState} from 'react';
 import * as d3 from "d3";
 import index from './index.module.css';
 import {useRecoilState} from "recoil";
-import {datasetState, algorithmState} from "../../state/store";
+import {datasetState, algorithmState, aState, bState} from "../../state/store";
 import getAUCPrecision from "../../api/getAUCPrecision";
 import _ from 'lodash'
-import {normalize} from "@testing-library/jest-dom/dist/utils";
-import {log} from "@craco/craco/lib/logger";
 import {cyan, grey, lime} from "@ant-design/colors";
 import {ALGORITHMS} from "../../constants";
+import getLERDAUCPrecisionOnly from "../../api/getLERDAUCPrecisionOnly";
 
 const AUCPrecisionGraph = () => {
-    const [dataset, setDataset] = useRecoilState(datasetState)
-    const [algorithm, setAlgorithm] = useRecoilState(algorithmState)
+    const [dataset] = useRecoilState(datasetState)
+    const [algorithm] = useRecoilState(algorithmState)
+    const [a] = useRecoilState(aState)
+    const [b] = useRecoilState(bState)
     const [AUCs, setAUCs] = useState()
     const [precisions, setPrecisions] = useState()
     const width = 890
     const height = 80
     let AUCPrecisionSvg
     useEffect(() => {
-        getAUCPrecision(dataset).then(
+        getAUCPrecision(dataset, a, b).then(
             res => {
                 const score = res.data.score
                 const AUCs = []
@@ -33,6 +34,27 @@ const AUCPrecisionGraph = () => {
             }
         )
     }, [dataset])
+    useEffect(() => {
+        if (!_.isUndefined(AUCs) && !_.isUndefined(precisions)) {
+            getLERDAUCPrecisionOnly(dataset, a, b).then(
+                res => {
+                    const LERDScore = res.data.score
+                    const tempAUCs = []
+                    const tempPrecisions = []
+                    for (let i = 0; i < AUCs.length - 1; i++) {
+                        tempAUCs[i] = AUCs[i]
+                    }
+                    tempAUCs[AUCs.length - 1] = LERDScore.AUCScore
+                    for (let i = 0; i < precisions.length - 1; i++) {
+                        tempPrecisions[i] = precisions[i]
+                    }
+                    tempPrecisions[precisions.length - 1] = LERDScore.precisionScore
+                    setAUCs(tempAUCs)
+                    setPrecisions(tempPrecisions)
+                }
+            )
+        }
+    }, [a, b])
     useEffect(() => {
         if (!_.isUndefined(AUCs) && !_.isUndefined(precisions)) {
             d3.select('#AUCPrecisionGraph').selectAll('*').remove()

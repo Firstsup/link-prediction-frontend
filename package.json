@@ -16,6 +16,8 @@
     "d3": "^7.6.1",
     "http-proxy-middleware": "^2.0.6",
     "lodash": "^4.17.21",
+    "mathjax-full": "^3.2.2",
+    "mathjax-react": "^2.0.1",
     "npm-check": "^6.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

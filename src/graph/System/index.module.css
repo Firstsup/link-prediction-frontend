@@ -2,13 +2,14 @@
     width: 1800px;
     height: 900px;
     display: grid;
-    grid-template-columns: 340px 260px 890px 300px;
-    grid-template-rows: 55px 80px 420px 45px 300px;
-    grid-template-areas: "a a a a"
-                         "b b g f"
-                         "b b e f"
-                         "c d e f"
-                         "c d h f";
+    grid-template-columns: 340px 260px 300px 300px 290px 300px;
+    grid-template-rows: 55px 80px 420px 45px 150px 150px;
+    grid-template-areas: "a a a a a a"
+                         "b b g g g f"
+                         "b b e e e f"
+                         "c d e e e f"
+                         "c d h k j f"
+                         "c d h i j f";
 }
 
 .title {
@@ -37,4 +38,20 @@
 
 .console {
     grid-area: f;
+}
+
+.formula {
+    grid-area: k;
+}
+
+.ABControl {
+    grid-area: i;
+}
+
+.LERDGraph {
+    grid-area: j;
+}
+
+.algorithmResultGraph {
+    grid-area: h;
 }

@@ -9,7 +9,7 @@ import {geekblue, grey, lime, magenta} from "@ant-design/colors";
 import _ from 'lodash'
 
 const StatisticsGraph = () => {
-    const [dataset, setDataset] = useRecoilState(datasetState)
+    const [dataset] = useRecoilState(datasetState)
     const [statistics, setStatistics] = useState()
     const width = 341
     const height = 340
@@ -112,6 +112,7 @@ const StatisticsGraph = () => {
                     .attr('x2', width / 2 + Math.sin(2 * Math.PI / 8 * (i + 4 + 1)) * linears[(i + 1) % 8](averages[(i + 1) % 8]))
                     .attr('y2', height / 2 + Math.cos(2 * Math.PI / 8 * (i + 4 + 1)) * linears[(i + 1) % 8](averages[(i + 1) % 8]))
                     .attr('stroke-width', 2)
+                    .attr('stroke-dasharray', '5, 2')
                     .attr('stroke', grey[2])
             }
             for (let i = 0; i < 8; i++) {
@@ -153,7 +154,7 @@ const StatisticsGraph = () => {
                             .text(averages[i])
                     })
                     .on('mouseout', function () {
-                        d3.select('.temp')
+                        statisticsSvg.select('.temp')
                             .remove()
                     })
                     .attr('r', 3)
@@ -175,7 +176,7 @@ const StatisticsGraph = () => {
                             .text(currentStatistic[currentLabel])
                     })
                     .on('mouseout', function () {
-                        d3.select('.temp')
+                        statisticsSvg.select('.temp')
                             .remove()
                     })
                     .transition()

@@ -3,16 +3,16 @@ import * as d3 from "d3";
 import index from './index.module.css';
 import getGraph from '../../api/getGraph'
 import _ from 'lodash'
-import {blue, geekblue, green, purple, red} from "@ant-design/colors";
+import {blue, geekblue, green, purple} from "@ant-design/colors";
 import {node1State, node2State, datasetState, nodesState, edgesState} from '../../state/store';
 import {useRecoilState} from "recoil";
 
 const ForceDirectedGraph = () => {
-    const [dataset, setDataset] = useRecoilState(datasetState)
+    const [dataset] = useRecoilState(datasetState)
     const [node1, setNode1] = useRecoilState(node1State)
     const [node2, setNode2] = useRecoilState(node2State)
-    const [nodes, setNodes] = useRecoilState(nodesState)
-    const [edges, setEdges] = useRecoilState(edgesState)
+    const [, setNodes] = useRecoilState(nodesState)
+    const [, setEdges] = useRecoilState(edgesState)
     const changeNode1 = (value) => {
         setNode1(value)
     }

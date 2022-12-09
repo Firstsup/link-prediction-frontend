@@ -8,7 +8,7 @@ export const datasetState = atom({
 
 export const algorithmState = atom({
     key: 'algorithm',
-    default: ALGORITHMS[0]
+    default: ALGORITHMS[2]
 })
 
 export const node1State = atom({
@@ -34,4 +34,19 @@ export const nodesState = atom({
 export const edgesState = atom({
     key: 'edges',
     default: []
+})
+
+export const aState = atom({
+    key: 'a',
+    default: 50
+})
+
+export const bState = atom({
+    key: 'b',
+    default: 0.008
+})
+
+export const hoverState = atom({
+    key: 'hover',
+    default: 0
 })

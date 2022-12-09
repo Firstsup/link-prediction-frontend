@@ -7,6 +7,10 @@ import index from './index.module.css';
 import AnalysisGraph from "../AnalysisGraph";
 import DegreeDistributionGraph from "../DegreeDistributionGraph";
 import AUCPrecisionGraph from "../AUCPrecisionGraph";
+import AlgorithmResultGraph from "../AlgorithmResultGraph";
+import ABControl from "../ABControl";
+import LERDGraph from "../LERDGraph";
+import Formula from "../Formula";
 
 const System = () => {
     return (
@@ -28,6 +32,18 @@ const System = () => {
             </div>
             <div className={index.analysisGraph}>
                 <AnalysisGraph/>
+            </div>
+            <div className={index.algorithmResultGraph}>
+                <AlgorithmResultGraph/>
+            </div>
+            <div className={index.formula}>
+                <Formula/>
+            </div>
+            <div className={index.ABControl}>
+                <ABControl/>
+            </div>
+            <div className={index.LERDGraph}>
+                <LERDGraph/>
             </div>
             <div className={index.console}>
                 <Console/>

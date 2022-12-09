@@ -4,13 +4,13 @@ import index from './index.module.css';
 import getGraph from "../../api/getGraph";
 import {useRecoilState} from "recoil";
 import {datasetState, node1State, node2State} from "../../state/store";
-import {blue, cyan, green, grey, purple, red, yellow} from "@ant-design/colors";
+import {blue, cyan, grey, purple, red} from "@ant-design/colors";
 import _ from 'lodash'
 
 const DegreeDistributionGraph = () => {
-    const [dataset, setDataset] = useRecoilState(datasetState)
-    const [node1, setNode1] = useRecoilState(node1State)
-    const [node2, setNode2] = useRecoilState(node2State)
+    const [dataset] = useRecoilState(datasetState)
+    const [node1] = useRecoilState(node1State)
+    const [node2] = useRecoilState(node2State)
     const [nodesDegree, setNodesDegree] = useState()
     const [nodes, setNodes] = useState()
     const [minDegree, setMinDegree] = useState()

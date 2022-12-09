@@ -1,6 +1,6 @@
-const f = async (datasetName, algorithmName, a, b) => {
-    return (
-        await fetch(`/api/getMatrix?datasetName=${datasetName}&algorithmName=${algorithmName}&a=${a}&b=${b}`, {
+const f = async (datasetName) => {
+    return(
+        await fetch(`/api/getLERDResult?datasetName=${datasetName}`, {
             method: 'get',
             headers: {
                 'Accept': 'application/json',
