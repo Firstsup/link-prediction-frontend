@@ -86,6 +86,270 @@
     margin-top: -55px;
 }
 
-.CNDiv1, .CNDiv2, .AADiv1, .AADiv2, .AADiv3, .AADiv4, .RADiv1, .RADiv2, .RADiv3, .RADiv4:hover {
+.PADiv1 {
+    position: absolute;
+    height: 33px;
+    width: 35px;
+    margin-left: 140px;
+    margin-top: -45px;
+}
+
+.PADiv2 {
+    position: absolute;
+    height: 33px;
+    width: 35px;
+    margin-left: 200px;
+    margin-top: -45px;
+}
+
+.HDIDiv1 {
+    position: absolute;
+    height: 33px;
+    width: 35px;
+    margin-left: 140px;
+    margin-top: -87px;
+}
+
+.HDIDiv2 {
+    position: absolute;
+    height: 33px;
+    width: 35px;
+    margin-left: 200px;
+    margin-top: -87px;
+}
+
+.HDIDiv3 {
+    position: absolute;
+    height: 33px;
+    width: 32px;
+    margin-left: 174px;
+    margin-top: -45px;
+}
+
+.HDIDiv4 {
+    position: absolute;
+    height: 33px;
+    width: 32px;
+    margin-left: 214px;
+    margin-top: -45px;
+}
+
+.HPIDiv1 {
+    position: absolute;
+    height: 33px;
+    width: 35px;
+    margin-left: 140px;
+    margin-top: -87px;
+}
+
+.HPIDiv2 {
+    position: absolute;
+    height: 33px;
+    width: 35px;
+    margin-left: 200px;
+    margin-top: -87px;
+}
+
+.HPIDiv3 {
+    position: absolute;
+    height: 33px;
+    width: 32px;
+    margin-left: 174px;
+    margin-top: -45px;
+}
+
+.HPIDiv4 {
+    position: absolute;
+    height: 33px;
+    width: 32px;
+    margin-left: 214px;
+    margin-top: -45px;
+}
+
+.SIDiv1 {
+    position: absolute;
+    height: 33px;
+    width: 35px;
+    margin-left: 140px;
+    margin-top: -92px;
+}
+
+.SIDiv2 {
+    position: absolute;
+    height: 33px;
+    width: 35px;
+    margin-left: 200px;
+    margin-top: -92px;
+}
+
+.SIDiv3 {
+    position: absolute;
+    height: 30px;
+    width: 32px;
+    margin-left: 162px;
+    margin-top: -45px;
+}
+
+.SIDiv4 {
+    position: absolute;
+    height: 30px;
+    width: 32px;
+    margin-left: 210px;
+    margin-top: -45px;
+}
+
+.SOLDiv1 {
+    position: absolute;
+    height: 33px;
+    width: 35px;
+    margin-left: 147px;
+    margin-top: -87px;
+}
+
+.SOLDiv2 {
+    position: absolute;
+    height: 33px;
+    width: 35px;
+    margin-left: 207px;
+    margin-top: -87px;
+}
+
+.SOLDiv3 {
+    position: absolute;
+    height: 33px;
+    width: 32px;
+    margin-left: 140px;
+    margin-top: -45px;
+}
+
+.SOLDiv4 {
+    position: absolute;
+    height: 33px;
+    width: 32px;
+    margin-left: 202px;
+    margin-top: -45px;
+}
+
+.CHDiv1 {
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    margin-left: 112px;
+    margin-top: -39px;
+}
+
+.CHDiv2 {
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    margin-left: 145px;
+    margin-top: -39px;
+}
+
+.CHDiv3 {
+    position: absolute;
+    height: 40px;
+    width: 48px;
+    margin-left: 227px;
+    margin-top: -104px;
+}
+
+.CHDiv4 {
+    position: absolute;
+    height: 40px;
+    width: 48px;
+    margin-left: 227px;
+    margin-top: -57px;
+}
+
+.CHDiv5 {
+    position: absolute;
+    height: 18px;
+    width: 16px;
+    margin-left: 90px;
+    margin-top: -37px;
+}
+
+.ERDDiv1 {
+    position: absolute;
+    height: 8px;
+    width: 8px;
+    margin-left: 55px;
+    margin-top: -45px;
+}
+
+.ERDDiv2 {
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    margin-left: 66px;
+    margin-top: -47px;
+}
+
+.ERDDiv3 {
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    margin-left: 82px;
+    margin-top: -47px;
+}
+
+.ERDDiv4 {
+    position: absolute;
+    height: 14px;
+    width: 14px;
+    margin-left: 196px;
+    margin-top: -80px;
+}
+
+.ERDDiv5 {
+    position: absolute;
+    height: 14px;
+    width: 14px;
+    margin-left: 231px;
+    margin-top: -80px;
+}
+
+.ERDDiv6 {
+    position: absolute;
+    height: 14px;
+    width: 14px;
+    margin-left: 190px;
+    margin-top: -35px;
+}
+
+.ERDDiv7 {
+    position: absolute;
+    height: 17px;
+    width: 24px;
+    margin-left: 225px;
+    margin-top: -55px;
+}
+
+.ERDDiv8 {
+    position: absolute;
+    height: 14px;
+    width: 14px;
+    margin-left: 231px;
+    margin-top: -35px;
+}
+
+.ERDDiv9 {
+    position: absolute;
+    height: 10px;
+    width: 12px;
+    margin-left: 126px;
+    margin-top: -71px;
+}
+
+.ERDDiv10 {
+    position: absolute;
+    height: 10px;
+    width: 12px;
+    margin-left: 97px;
+    margin-top: -26px;
+}
+
+.CNDiv1, .CNDiv2, .AADiv1, .AADiv2, .AADiv3, .AADiv4, .RADiv1, .RADiv2, .RADiv3, .RADiv4, .PADiv1, .PADiv2, .HDIDiv1, .HDIDiv2, .HDIDiv3, .HDIDiv4, .HPIDiv1, .HPIDiv2, .HPIDiv3, .HPIDiv4, .SIDiv1, .SIDiv2, .SIDiv3, .SIDiv4, .SOLDiv1, .SOLDiv2, .SOLDiv3, .SOLDiv4, .CHDiv1, .CHDiv2, .CHDiv3, .CHDiv4, .CHDiv5, .ERDDiv1, .ERDDiv2, .ERDDiv3, .ERDDiv4, .ERDDiv5, .ERDDiv6, .ERDDiv7, .ERDDiv8, .ERDDiv9, .ERDDiv10:hover {
     cursor: pointer;
 }

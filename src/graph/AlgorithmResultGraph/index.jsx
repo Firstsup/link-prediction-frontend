@@ -98,7 +98,6 @@ const AlgorithmResultGraph = () => {
                 .attr('cx', width / 2)
                 .attr('cy', height / 2 + 20)
                 .attr('r', 4)
-            console.log(matrix)
             algorithmResultSvg.append('text')
                 .attr('x', width / 2)
                 .attr('y', 30)

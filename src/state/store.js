@@ -8,7 +8,7 @@ export const datasetState = atom({
 
 export const algorithmState = atom({
     key: 'algorithm',
-    default: ALGORITHMS[2]
+    default: ALGORITHMS[0]
 })
 
 export const node1State = atom({
