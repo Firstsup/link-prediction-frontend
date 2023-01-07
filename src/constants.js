@@ -1,4 +1,4 @@
-export const DATASETS = ['football', 'zachary', 'DBpedia', 'physicians', 'euroroads', 'jazz', 'yeast', 'netscience']
+export const DATASETS = ['football', 'zachary', 'DBpedia', 'physicians', 'euroroads', 'jazz', 'yeast', 'hamsterster']
 
 export const ALGORITHMS = ['CN', 'AA', 'RA', 'PA', 'HDI', 'HPI', 'SI', 'SOL', 'CH', 'ERTR', 'LERTR']
 
