@@ -7,7 +7,7 @@ import getAUCPrecision from "../../api/getAUCPrecision";
 import _ from 'lodash'
 import {cyan, grey, lime} from "@ant-design/colors";
 import {ALGORITHMS} from "../../constants";
-import getLERDAUCPrecisionOnly from "../../api/getLERDAUCPrecisionOnly";
+import getLERTRAUCPrecisionOnly from "../../api/getLERTRAUCPrecisionOnly";
 
 const AUCPrecisionGraph = () => {
     const [dataset] = useRecoilState(datasetState)
@@ -36,19 +36,19 @@ const AUCPrecisionGraph = () => {
     }, [dataset])
     useEffect(() => {
         if (!_.isUndefined(AUCs) && !_.isUndefined(precisions)) {
-            getLERDAUCPrecisionOnly(dataset, a, b).then(
+            getLERTRAUCPrecisionOnly(dataset, a, b).then(
                 res => {
-                    const LERDScore = res.data.score
+                    const LERTRScore = res.data.score
                     const tempAUCs = []
                     const tempPrecisions = []
                     for (let i = 0; i < AUCs.length - 1; i++) {
                         tempAUCs[i] = AUCs[i]
                     }
-                    tempAUCs[AUCs.length - 1] = LERDScore.AUCScore
+                    tempAUCs[AUCs.length - 1] = LERTRScore.AUCScore
                     for (let i = 0; i < precisions.length - 1; i++) {
                         tempPrecisions[i] = precisions[i]
                     }
-                    tempPrecisions[precisions.length - 1] = LERDScore.precisionScore
+                    tempPrecisions[precisions.length - 1] = LERTRScore.precisionScore
                     setAUCs(tempAUCs)
                     setPrecisions(tempPrecisions)
                 }

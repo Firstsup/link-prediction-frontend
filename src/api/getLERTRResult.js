@@ -1,6 +1,6 @@
-const f = async (datasetName, a, b) => {
+const f = async (datasetName) => {
     return(
-        await fetch(`/api/getLERDAUCPrecisionOnly?datasetName=${datasetName}&a=${a}&b=${b}`, {
+        await fetch(`/api/getLERTRResult?datasetName=${datasetName}`, {
             method: 'get',
             headers: {
                 'Accept': 'application/json',

@@ -9,7 +9,7 @@ import DegreeDistributionGraph from "../DegreeDistributionGraph";
 import AUCPrecisionGraph from "../AUCPrecisionGraph";
 import AlgorithmResultGraph from "../AlgorithmResultGraph";
 import ABControl from "../ABControl";
-import LERDGraph from "../LERDGraph";
+import LERTRGraph from "../LERTRGraph";
 import Formula from "../Formula";
 
 const System = () => {
@@ -42,8 +42,8 @@ const System = () => {
             <div className={index.ABControl}>
                 <ABControl/>
             </div>
-            <div className={index.LERDGraph}>
-                <LERDGraph/>
+            <div className={index.LERTRGraph}>
+                <LERTRGraph/>
             </div>
             <div className={index.console}>
                 <Console/>

@@ -5,30 +5,30 @@ import {useRecoilState} from "recoil";
 import {datasetState} from "../../state/store";
 import _ from 'lodash'
 import {blue, magenta} from "@ant-design/colors";
-import getLERDResult from "../../api/getLERDResult";
+import getLERTRResult from "../../api/getLERTRResult";
 import {A, B} from '../../constants'
 
-const LERDGraph = () => {
+const LERTRGraph = () => {
     const [dataset] = useRecoilState(datasetState)
     const [result, setResult] = useState()
     const width = 296
     const height = 300
-    let LERDSvg
+    let LERTRSvg
     useEffect(() => {
-        getLERDResult(dataset).then(
+        getLERTRResult(dataset).then(
             res => {
                 if (res.code === 1) {
                     setResult(res.data.score)
                 } else {
-                    console.log(`LERD API 报错，错误原因为${res.message}`)
+                    console.log(`LERTR API 报错，错误原因为${res.message}`)
                 }
             }
         )
     }, [dataset])
     useEffect(() => {
         if (!_.isUndefined(result)) {
-            d3.select('#LERDGraph').selectAll('*').remove()
-            LERDSvg = d3.select('#LERDGraph')
+            d3.select('#LERTRGraph').selectAll('*').remove()
+            LERTRSvg = d3.select('#LERTRGraph')
                 .append("svg")
                 .attr("width", width)
                 .attr("height", height)
@@ -51,7 +51,7 @@ const LERDGraph = () => {
             const compute = d3.interpolate(magenta[3], blue[3])
             for (let i = 0; i < A.length; i++) {
                 for (let j = 0; j < B.length; j++) {
-                    LERDSvg.append('rect')
+                    LERTRSvg.append('rect')
                         .attr('x', 45 + i * rectWidth + i * spaceWidth)
                         .attr('y', 246 - (j + 1) * rectHeight - j * spaceHeight)
                         .attr('width', rectWidth)
@@ -60,7 +60,7 @@ const LERDGraph = () => {
                 }
             }
             for (let i = 0; i < A.length; i++) {
-                LERDSvg.append('text')
+                LERTRSvg.append('text')
                     .attr('x', 45 + (i + 0.5) * rectWidth + i * spaceWidth)
                     .attr('y', 260)
                     .attr('font-size', 12)
@@ -69,7 +69,7 @@ const LERDGraph = () => {
                     .text(A[i])
             }
             for (let i = 0; i < B.length; i++) {
-                LERDSvg.append('text')
+                LERTRSvg.append('text')
                     .attr('x', 25)
                     .attr('y', 250 - (i + 0.5) * rectHeight - i * spaceHeight)
                     .attr('font-size', 12)
@@ -77,13 +77,13 @@ const LERDGraph = () => {
                     .attr('font-family', 'sans-serif')
                     .text(B[i])
             }
-            LERDSvg.append('text')
+            LERTRSvg.append('text')
                 .attr('x', 275)
                 .attr('y', 275)
                 .attr('text-anchor', 'middle')
                 .attr('font-family', 'sans-serif')
                 .text('α')
-            LERDSvg.append('text')
+            LERTRSvg.append('text')
                 .attr('x', 15)
                 .attr('y', 20)
                 .attr('text-anchor', 'middle')
@@ -92,8 +92,8 @@ const LERDGraph = () => {
         }
     }, [result])
     return (
-        <div className={index.graph} id={'LERDGraph'}/>
+        <div className={index.graph} id={'LERTRGraph'}/>
     )
 }
 
-export default LERDGraph
+export default LERTRGraph

@@ -514,14 +514,14 @@ const AnalysisGraph = () => {
                     .attr('x2', i < Math.ceil(node1Neighbor12.length / 2) ? (30 + (i + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (i - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace))
                     .attr('y2', 140 + centerY[i] - sizeLinear2(nodes[node1Neighbor12[i] - 1].degree))
                     .attr('stroke', cyan[3])
-                    .attr('stroke-width', ['RA', 'ERD'].includes(algorithm) ? strokeLinear(1 / nodes[node1Neighbor12[i] - 1].neighbor.length) : 5)
+                    .attr('stroke-width', ['RA', 'ERTR'].includes(algorithm) ? strokeLinear(1 / nodes[node1Neighbor12[i] - 1].neighbor.length) : 5)
                 analysisSvg.append('line')
                     .attr('x1', i < Math.ceil(node1Neighbor12.length / 2) ? (30 + (i + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (i - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace))
                     .attr('y1', 320)
                     .attr('x2', i < Math.ceil(node1Neighbor12.length / 2) ? (30 + (i + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (i - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace))
                     .attr('y2', 140 + centerY[i] + sizeLinear2(nodes[node1Neighbor12[i] - 1].degree))
                     .attr('stroke', cyan[3])
-                    .attr('stroke-width', ['RA', 'ERD'].includes(algorithm) ? strokeLinear(1 / nodes[node1Neighbor12[i] - 1].neighbor.length) : 5)
+                    .attr('stroke-width', ['RA', 'ERTR'].includes(algorithm) ? strokeLinear(1 / nodes[node1Neighbor12[i] - 1].neighbor.length) : 5)
                 analysisSvg.append('circle')
                     .attr('cx', width / 2)
                     .attr('cy', 320)
@@ -569,20 +569,13 @@ const AnalysisGraph = () => {
                         .attr('font-family', 'sans-serif')
                         .attr('transform', 'translate(0, -48)')
                         .text(`k(i) = ${thisNodeNeighbor1.length}`)
-                    let temp = 0
-                    if (nodes[node1 - 1].neighbor.includes(node1Neighbor12[i])) {
-                        temp++
-                    }
-                    if (nodes[node2 - 1].neighbor.includes(node1Neighbor12[i])) {
-                        temp++
-                    }
                     analysisSvg.append('text')
                         .attr('x', i < Math.ceil(node1Neighbor12.length / 2) ? (30 + (i + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (i - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace))
                         .attr('y', 145 + centerY[i])
                         .attr('text-anchor', 'middle')
                         .attr('font-family', 'sans-serif')
                         .attr('transform', 'translate(0, -30)')
-                        .text(`k(e) = ${nodes[node1Neighbor12[i] - 1].neighbor.length - thisNodeNeighbor1.length - temp}`)
+                        .text(`k(e) = ${nodes[node1Neighbor12[i] - 1].neighbor.length - thisNodeNeighbor1.length}`)
                 }
             }
             if ([4].includes(hover)) {

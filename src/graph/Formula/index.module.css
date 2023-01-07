@@ -270,7 +270,7 @@
     margin-top: -37px;
 }
 
-.ERDDiv1 {
+.ERTRDiv1 {
     position: absolute;
     height: 8px;
     width: 8px;
@@ -278,7 +278,7 @@
     margin-top: -45px;
 }
 
-.ERDDiv2 {
+.ERTRDiv2 {
     position: absolute;
     height: 12px;
     width: 12px;
@@ -286,7 +286,7 @@
     margin-top: -47px;
 }
 
-.ERDDiv3 {
+.ERTRDiv3 {
     position: absolute;
     height: 12px;
     width: 12px;
@@ -294,7 +294,7 @@
     margin-top: -47px;
 }
 
-.ERDDiv4 {
+.ERTRDiv4 {
     position: absolute;
     height: 14px;
     width: 14px;
@@ -302,7 +302,7 @@
     margin-top: -80px;
 }
 
-.ERDDiv5 {
+.ERTRDiv5 {
     position: absolute;
     height: 14px;
     width: 14px;
@@ -310,7 +310,7 @@
     margin-top: -80px;
 }
 
-.ERDDiv6 {
+.ERTRDiv6 {
     position: absolute;
     height: 14px;
     width: 14px;
@@ -318,7 +318,7 @@
     margin-top: -35px;
 }
 
-.ERDDiv7 {
+.ERTRDiv7 {
     position: absolute;
     height: 17px;
     width: 24px;
@@ -326,7 +326,7 @@
     margin-top: -55px;
 }
 
-.ERDDiv8 {
+.ERTRDiv8 {
     position: absolute;
     height: 14px;
     width: 14px;
@@ -334,7 +334,7 @@
     margin-top: -35px;
 }
 
-.ERDDiv9 {
+.ERTRDiv9 {
     position: absolute;
     height: 10px;
     width: 12px;
@@ -342,7 +342,7 @@
     margin-top: -71px;
 }
 
-.ERDDiv10 {
+.ERTRDiv10 {
     position: absolute;
     height: 10px;
     width: 12px;
@@ -350,6 +350,6 @@
     margin-top: -26px;
 }
 
-.CNDiv1, .CNDiv2, .AADiv1, .AADiv2, .AADiv3, .AADiv4, .RADiv1, .RADiv2, .RADiv3, .RADiv4, .PADiv1, .PADiv2, .HDIDiv1, .HDIDiv2, .HDIDiv3, .HDIDiv4, .HPIDiv1, .HPIDiv2, .HPIDiv3, .HPIDiv4, .SIDiv1, .SIDiv2, .SIDiv3, .SIDiv4, .SOLDiv1, .SOLDiv2, .SOLDiv3, .SOLDiv4, .CHDiv1, .CHDiv2, .CHDiv3, .CHDiv4, .CHDiv5, .ERDDiv1, .ERDDiv2, .ERDDiv3, .ERDDiv4, .ERDDiv5, .ERDDiv6, .ERDDiv7, .ERDDiv8, .ERDDiv9, .ERDDiv10:hover {
+.CNDiv1, .CNDiv2, .AADiv1, .AADiv2, .AADiv3, .AADiv4, .RADiv1, .RADiv2, .RADiv3, .RADiv4, .PADiv1, .PADiv2, .HDIDiv1, .HDIDiv2, .HDIDiv3, .HDIDiv4, .HPIDiv1, .HPIDiv2, .HPIDiv3, .HPIDiv4, .SIDiv1, .SIDiv2, .SIDiv3, .SIDiv4, .SOLDiv1, .SOLDiv2, .SOLDiv3, .SOLDiv4, .CHDiv1, .CHDiv2, .CHDiv3, .CHDiv4, .CHDiv5, .ERTRDiv1, .ERTRDiv2, .ERTRDiv3, .ERTRDiv4, .ERTRDiv5, .ERTRDiv6, .ERTRDiv7, .ERTRDiv8, .ERTRDiv9, .ERTRDiv10:hover {
     cursor: pointer;
 }

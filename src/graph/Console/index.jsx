@@ -139,7 +139,7 @@ const Console = () => {
                                                 ranking: `${count + 1}`,
                                                 node1: sortArr[i][0],
                                                 node2: sortArr[i][1],
-                                                score: sortArr[i][2]
+                                                score: Number.isInteger(sortArr[i][2]) ? sortArr[i][2] : sortArr[i][2].toFixed(3 )
                                             })
                                             count++
                                         }
@@ -197,7 +197,7 @@ const Console = () => {
                                                 ranking: `${count + 1}`,
                                                 node1: node1,
                                                 node2: sortArr[i][0],
-                                                score: sortArr[i][1]
+                                                score: Number.isInteger(sortArr[i][1]) ? sortArr[i][1] : sortArr[i][1].toFixed(3)
                                             })
                                             count++
                                         }

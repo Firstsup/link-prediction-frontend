@@ -172,6 +172,31 @@ const DegreeDistributionGraph = () => {
                         })
                 }
             }
+            const quarter = nodes.length / 4
+            let quarters = []
+            let sum = 0
+            let pos = 1
+            for (let i = 0; i < nodesDegree.length; i++) {
+                sum += nodesDegree[i][1]
+                if (sum >= quarter * pos) {
+                    quarters[pos - 1] = nodesDegree[i][0]
+                    pos++
+                    if (pos === 4) {
+                        break
+                    }
+                }
+            }
+            degreeDistributionSvg.append('rect')
+                .attr('x', width / 2 - 5)
+                .attr('y', 281 - yLinear(quarters[2]))
+                .attr('width', 10)
+                .attr('height', yLinear(quarters[2]) - yLinear(quarters[0]))
+                .attr('fill', blue[4])
+            degreeDistributionSvg.append('circle')
+                .attr('cx', width / 2)
+                .attr('cy', 281 - yLinear(quarters[1]))
+                .attr('r', 3)
+                .attr('fill', 'white')
             const xAxis = d3.axisBottom(xLinear).ticks(3).tickSize(2)
             const antiXAxis = d3.axisBottom(antiXLinear).ticks(3).tickSize(2)
             const antiYAxis = d3.axisRight(antiYLinear).ticks(maxDegree - minDegree + 3).tickSize(4)

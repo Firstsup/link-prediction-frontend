@@ -30,12 +30,13 @@ const Title = () => {
     })
     return (
         <div className={index.title}>
-            <div className={index.text}>LP-VIS</div>
+            <div className={index.text}>LPExplorer</div>
             <div className={index.selectDiv}>
                 <span className={index.selectText}>
                 Select Dataset
                 </span>
                 <Select
+                    className={index.select1}
                     defaultValue={"football"}
                     onChange={handleDatasetChange}
                     options={datasetOptions}
@@ -44,54 +45,10 @@ const Title = () => {
                 Select Algorithm
                 </span>
                 <Select
+                    className={index.select2}
                     defaultValue={"CN"}
                     onChange={handleAlgorithmChange}
-                    options={[
-                        {
-                            value: "CN",
-                            label: "CN"
-                        },
-                        {
-                            value: 'AA',
-                            label: 'AA'
-                        },
-                        {
-                            value: 'RA',
-                            label: 'RA'
-                        },
-                        {
-                            value: 'PA',
-                            label: 'PA'
-                        },
-                        {
-                            value: 'HDI',
-                            label: 'HDI'
-                        },
-                        {
-                            value: 'HPI',
-                            label: 'HPI'
-                        },
-                        {
-                            value: 'SI',
-                            label: 'SI'
-                        },
-                        {
-                            value: 'SOL',
-                            label: 'SOL'
-                        },
-                        {
-                            value: 'CH',
-                            label: 'CH'
-                        },
-                        {
-                            value: 'ERD',
-                            label: 'ERD'
-                        },
-                        {
-                            value: 'LERD',
-                            label: 'LERD'
-                        }
-                    ]}
+                    options={algorithmOptions}
                 />
             </div>
         </div>
