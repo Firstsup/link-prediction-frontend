@@ -134,9 +134,9 @@ const Formula = () => {
                 <div className={index.formula}>
                     <div style={{height: 1}}/>
                     <MathComponent
-                        tex={'\\scriptsize{S_{xy}=S_{xy}^{ERTR}+\\alpha\\cdot \\displaystyle\\sum_{(z_1,z_2)\\in Q}\\frac{\\frac{2}{k_{z_1}}\\cdot \\frac{2}{k_{z_2}}}{\\frac{k_{z_1}^{(e)}}{k_{z_1}}+\\frac{k_{z_2}^{(e)}}{k_{z_2}}}}'}/>
+                        tex={'\\scriptsize{S_{xy}=S_{xy}^{ERTR}+\\alpha\\cdot \\displaystyle\\sum_{(z_1,z_2)\\in Q}\\frac{\\frac{2}{k_{z_1}}\\cdot \\frac{2}{k_{z_2}}+}{\\frac{k_{z_1}^{(e)}}{k_{z_1}}+\\frac{k_{z_2}^{(e)}}{k_{z_2}}+}}'}/>
                     <MathComponent
-                        tex={'\\scriptsize{\\frac{+\\beta\\cdot \\displaystyle\\sum_{m_1\\in\\Gamma_{z_1}^{(i)}}\\frac{2}{k_{m_1}}\\cdot \\frac{1}{k_{z_1}}+\\beta\\cdot\\displaystyle\\sum_{m_2\\in\\Gamma_{z_2}^{(i)}}\\frac{2}{k_{m_2}}\\cdot\\frac{1}{k_{z_2}}+1}{+\\beta\\cdot\\displaystyle\\sum_{m_1\\in\\Gamma_{z_1}^{(i)}}\\frac{k_{m_1}-3}{k_{m_1}}\\cdot\\frac{1}{k_{z_1}}+\\beta\\cdot\\displaystyle\\sum_{m_2\\in\\Gamma_{z_2}^{(i)}}\\frac{k_{m_2}-3}{k_{m_2}}\\cdot\\frac{1}{k_{z_2}}}}'}/>
+                        tex={'\\scriptsize{\\frac{\\beta\\cdot \\displaystyle\\sum_{m_1\\in\\Gamma_{z_1}^{(i)}}\\frac{2}{k_{m_1}}\\cdot \\frac{1}{k_{z_1}}+\\beta\\cdot\\displaystyle\\sum_{m_2\\in\\Gamma_{z_2}^{(i)}}\\frac{2}{k_{m_2}}\\cdot\\frac{1}{k_{z_2}}+1}{\\beta\\cdot\\displaystyle\\sum_{m_1\\in\\Gamma_{z_1}^{(i)}}\\frac{k_{m_1}-3}{k_{m_1}}\\cdot\\frac{1}{k_{z_1}}+\\beta\\cdot\\displaystyle\\sum_{m_2\\in\\Gamma_{z_2}^{(i)}}\\frac{k_{m_2}-3}{k_{m_2}}\\cdot\\frac{1}{k_{z_2}}}}'}/>
                 </div>
             )
         default:
