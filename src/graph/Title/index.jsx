@@ -42,7 +42,7 @@ const Title = () => {
                     options={datasetOptions}
                 />
                 <span className={index.selectText}>
-                Select Algorithm
+                Select Index
                 </span>
                 <Select
                     className={index.select2}
