@@ -103,7 +103,7 @@ const Formula = () => {
                 <div className={index.formula}>
                     <div style={{height: 20}}/>
                     <MathComponent
-                        tex={'\\LARGE{S_{xy}=\\displaystyle\\sum_{z\\in\\Gamma_x\\cap\\Gamma_y}\\frac{1+k_{z(i)}}{1+k_{z(e)}}}'}/>
+                        tex={'\\LARGE{S_{xy}=\\displaystyle\\sum_{z\\in\\Gamma_x\\cap\\Gamma_y}\\frac{1+k_z^{(i)}}{1+k_z^{(e)}}}'}/>
                     <div className={index.CHDiv1} onMouseOver={() => setHover(1)} onMouseOut={() => setHover(0)}/>
                     <div className={index.CHDiv2} onMouseOver={() => setHover(2)} onMouseOut={() => setHover(0)}/>
                     <div className={index.CHDiv3} onMouseOver={() => setHover(6)} onMouseOut={() => setHover(0)}/>
