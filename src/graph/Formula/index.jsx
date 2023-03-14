@@ -116,7 +116,7 @@ const Formula = () => {
                 <div className={index.formula}>
                     <div style={{height: 20}}/>
                     <MathComponent
-                        tex={'\\small{S_{xy}=\\displaystyle\\sum_{z\\in\\Gamma_x\\cap\\Gamma_y}\\frac{\\displaystyle\\sum_{m\\in\\Gamma_z^{(i)}}\\frac{2}{k_m}\\cdot\\frac{1}{k_z}+\\frac{2}{k_z}+1}{\\displaystyle\\sum_{m\\in\\Gamma_z^{(i)}}\\frac{k_m-3}{k_m}\\cdot\\frac{1}{k_z}+\\frac{k_z^{(e)}}{k_z}+1}}'}/>
+                        tex={'\\small{S_{xy}=\\displaystyle\\sum_{z\\in\\Gamma_x\\cap\\Gamma_y}\\frac{\\displaystyle\\frac{2}{k_z}+\\displaystyle\\sum_{m\\in\\Gamma_z^{(i)}}\\frac{2}{k_m}\\cdot\\frac{1}{k_z}+1}{\\displaystyle\\frac{k_z^{(e)}}{k_z}+\\displaystyle\\sum_{m\\in\\Gamma_z^{(i)}}\\frac{k_m-2}{k_m}\\cdot\\frac{1}{k_z}+1}}'}/>
                     <div className={index.ERTRDiv1} onMouseOver={() => setHover(3)} onMouseOut={() => setHover(0)}/>
                     <div className={index.ERTRDiv2} onMouseOver={() => setHover(1)} onMouseOut={() => setHover(0)}/>
                     <div className={index.ERTRDiv3} onMouseOver={() => setHover(2)} onMouseOut={() => setHover(0)}/>
@@ -134,9 +134,9 @@ const Formula = () => {
                 <div className={index.formula}>
                     <div style={{height: 1}}/>
                     <MathComponent
-                        tex={'\\scriptsize{S_{xy}=S_{xy}^{ERTR}+\\alpha\\cdot \\displaystyle\\sum_{(z_1,z_2)\\in Q}\\frac{\\frac{2}{k_{z_1}}\\cdot \\frac{2}{k_{z_2}}+}{\\frac{k_{z_1}^{(e)}}{k_{z_1}}+\\frac{k_{z_2}^{(e)}}{k_{z_2}}+}}'}/>
+                        tex={'\\scriptsize{S_{xy}=S_{xy}^{ERTR}+\\alpha\\cdot \\displaystyle\\sum_{(z_1,z_2)\\in Q}\\frac{\\frac{1}{k_{z_1}}+\\frac{1}{k_{z_2}}+\\frac{2}{k_{z_1}\\cdot k_{z_2}}+}{\\frac{k_{z_1}^{(e)}}{k_{z_1}}+\\frac{k_{z_2}^{(e)}}{k_{z_2}}-\\frac{2}{k_{z_1}\\cdot k_{z_2}}+}}'}/>
                     <MathComponent
-                        tex={'\\scriptsize{\\frac{\\beta\\cdot \\displaystyle\\sum_{m_1\\in\\Gamma_{z_1}^{(i)}}\\frac{2}{k_{m_1}}\\cdot \\frac{1}{k_{z_1}}+\\beta\\cdot\\displaystyle\\sum_{m_2\\in\\Gamma_{z_2}^{(i)}}\\frac{2}{k_{m_2}}\\cdot\\frac{1}{k_{z_2}}+1}{\\beta\\cdot\\displaystyle\\sum_{m_1\\in\\Gamma_{z_1}^{(i)}}\\frac{k_{m_1}-3}{k_{m_1}}\\cdot\\frac{1}{k_{z_1}}+\\beta\\cdot\\displaystyle\\sum_{m_2\\in\\Gamma_{z_2}^{(i)}}\\frac{k_{m_2}-3}{k_{m_2}}\\cdot\\frac{1}{k_{z_2}}}}'}/>
+                        tex={'\\scriptsize{\\frac{\\beta\\cdot \\displaystyle\\sum_{m_1\\in\\Gamma_{z_1}^{(i)}}\\frac{2}{k_{m_1}}\\cdot \\frac{1}{k_{z_1}}+\\beta\\cdot\\displaystyle\\sum_{m_2\\in\\Gamma_{z_2}^{(i)}}\\frac{2}{k_{m_2}}\\cdot\\frac{1}{k_{z_2}}+1}{\\beta\\cdot\\displaystyle\\sum_{m_1\\in\\Gamma_{z_1}^{(i)}}\\frac{k_{m_1}-2}{k_{m_1}}\\cdot\\frac{1}{k_{z_1}}+\\beta\\cdot\\displaystyle\\sum_{m_2\\in\\Gamma_{z_2}^{(i)}}\\frac{k_{m_2}-2}{k_{m_2}}\\cdot\\frac{1}{k_{z_2}}}}'}/>
                 </div>
             )
         default:

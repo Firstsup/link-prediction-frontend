@@ -98,13 +98,24 @@ const AlgorithmResultGraph = () => {
                 .attr('cx', width / 2)
                 .attr('cy', height / 2 + 20)
                 .attr('r', 4)
-            algorithmResultSvg.append('text')
-                .attr('x', width / 2)
-                .attr('y', 30)
-                .attr('text-anchor', 'middle')
-                .attr('font-family', 'sans-serif')
-                .attr('font-size', 20)
-                .text(`Score: ${Number.isInteger(matrix[node1 - 1][node2 - 1]) ? matrix[node1 - 1][node2 - 1] : matrix[node1 - 1][node2 - 1].toFixed(3)}`)
+            if (node1 < node2) {
+                algorithmResultSvg.append('text')
+                    .attr('x', width / 2)
+                    .attr('y', 30)
+                    .attr('text-anchor', 'middle')
+                    .attr('font-family', 'sans-serif')
+                    .attr('font-size', 20)
+                    .text(`Score: ${Number.isInteger(matrix[node1 - 1][node2 - 1]) ? matrix[node1 - 1][node2 - 1] : matrix[node1 - 1][node2 - 1].toFixed(3)}`)
+            } else {
+                algorithmResultSvg.append('text')
+                    .attr('x', width / 2)
+                    .attr('y', 30)
+                    .attr('text-anchor', 'middle')
+                    .attr('font-family', 'sans-serif')
+                    .attr('font-size', 20)
+                    .text(`Score: ${Number.isInteger(matrix[node2 - 1][node1 - 1]) ? matrix[node2 - 1][node1 - 1] : matrix[node2 - 1][node1 - 1].toFixed(3)}`)
+            }
+
         }
     }, [ranks, nodesCount, matrix])
     return (

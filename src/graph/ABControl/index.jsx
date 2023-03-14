@@ -59,44 +59,40 @@ const ABControl = () => {
     }
     const marks2 = {
         0: {
-            style: {'display': 'none'},
+            style: {'fontSize': '12px'},
             label: B[0]
         },
-        11: {
+        12.5: {
             style: {'fontSize': '12px'},
             label: B[1]
         },
-        22: {
-            style: {'display': 'none'},
+        25: {
+            style: {'fontSize': '12px'},
             label: B[2]
         },
-        33: {
+        37.5: {
             style: {'fontSize': '12px'},
             label: B[3]
         },
-        44: {
+        50: {
             style: {'fontSize': '12px'},
             label: B[4]
         },
-        55: {
+        62.5: {
             style: {'fontSize': '12px'},
             label: B[5]
         },
-        66: {
+        75: {
             style: {'fontSize': '12px'},
             label: B[6]
         },
-        77: {
+        87.5: {
             style: {'fontSize': '12px'},
             label: B[7]
         },
-        88: {
-            style: {'fontSize': '12px'},
-            label: B[8]
-        },
         100: {
             style: {'fontSize': '12px'},
-            label: B[9]
+            label: B[8]
         }
     }
     useEffect(() => {

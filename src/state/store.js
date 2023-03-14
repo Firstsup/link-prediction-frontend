@@ -38,12 +38,12 @@ export const edgesState = atom({
 
 export const aState = atom({
     key: 'a',
-    default: 50
+    default: 1
 })
 
 export const bState = atom({
     key: 'b',
-    default: 0.008
+    default: 0.1
 })
 
 export const hoverState = atom({

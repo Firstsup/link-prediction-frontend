@@ -68,7 +68,11 @@ const AnalysisGraph = () => {
                 thisNeighbors.forEach(d => {
                     density += Math.sqrt(Math.pow((nodes[i].x - nodes[d - 1].x), 2) + Math.pow((nodes[i].y - nodes[d - 1].y), 2))
                 })
-                densities[i] = density / thisNeighbors.length
+                if (thisNeighbors.length === 0) {
+                    densities[i] = 0
+                } else {
+                    densities[i] = density / thisNeighbors.length
+                }
             }
             const maxDensity = _.max(densities)
             const minDensity = _.min(densities)

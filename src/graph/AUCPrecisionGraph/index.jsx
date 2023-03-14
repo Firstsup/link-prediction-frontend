@@ -76,7 +76,7 @@ const AUCPrecisionGraph = () => {
                 .attr('text-anchor', 'end')
                 .attr('font-family', 'sans-serif')
                 .attr('font-size', 16)
-                .text('precision')
+                .text('Precision')
             const linear = d3.scaleLinear()
                 .domain([0, 1])
                 .range([0, 280])
