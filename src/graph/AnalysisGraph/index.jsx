@@ -129,15 +129,15 @@ const AnalysisGraph = () => {
                 .outerRadius(21 + sizeLinear1(nodes[node1 - 1].degree))
                 .startAngle(2 * Math.PI * ((node1Neighbor1.length + node1Neighbor2.length) / (node1Neighbor1.length + node1Neighbor2.length + node1Neighbor3.length)))
                 .endAngle(2 * Math.PI)
-            analysisSvg.append('path')
+            const path11 = analysisSvg.append('path')
                 .attr('d', node1Arc1)
                 .attr('fill', green[2])
                 .attr('transform', `translate(${width / 2}, 140)`)
-            analysisSvg.append('path')
+            const path12 = analysisSvg.append('path')
                 .attr('d', node1Arc2)
                 .attr('fill', gold[2])
                 .attr('transform', `translate(${width / 2}, 140)`)
-            analysisSvg.append('path')
+            const path13 = analysisSvg.append('path')
                 .attr('d', node1Arc3)
                 .attr('fill', red[2])
                 .attr('transform', `translate(${width / 2}, 140)`)
@@ -212,15 +212,15 @@ const AnalysisGraph = () => {
                 .outerRadius(21 + sizeLinear1(nodes[node2 - 1].degree))
                 .startAngle(2 * Math.PI * ((node2Neighbor1.length + node2Neighbor2.length) / (node2Neighbor1.length + node2Neighbor2.length + node2Neighbor3.length)))
                 .endAngle(2 * Math.PI)
-            analysisSvg.append('path')
+            const path21 = analysisSvg.append('path')
                 .attr('d', node2Arc1)
                 .attr('fill', green[2])
                 .attr('transform', `translate(${width / 2}, 320)`)
-            analysisSvg.append('path')
+            const path22 = analysisSvg.append('path')
                 .attr('d', node2Arc2)
                 .attr('fill', gold[2])
                 .attr('transform', `translate(${width / 2}, 320)`)
-            analysisSvg.append('path')
+            const path23 = analysisSvg.append('path')
                 .attr('d', node2Arc3)
                 .attr('fill', red[2])
                 .attr('transform', `translate(${width / 2}, 320)`)
@@ -443,6 +443,15 @@ const AnalysisGraph = () => {
                                 .duration(200)
                                 .attr('stroke', gold[2])
                                 .attr('stroke-width', 3)
+                            gBottom.append('circle')
+                                .classed('temp', true)
+                                .attr('cx', j < Math.ceil(node1Neighbor12.length / 2) ? (30 + (j + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (j - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace))
+                                .attr('cy', 140 + centerY[j])
+                                .attr('r', sizeLinear2(nodes[node1Neighbor12[j] - 1].degree))
+                                .transition()
+                                .duration(200)
+                                .attr('stroke', green[4])
+                                .attr('stroke-width', 3)
                         }
                     }
                 }
@@ -547,6 +556,122 @@ const AnalysisGraph = () => {
                     .attr('fill', 'none')
                     .attr('stroke', [1, 2, 3].includes(hover) ? green[4] : 'none')
                     .attr('stroke-width', 3)
+                path11.on('mouseover', function () {
+                    d3.select(this)
+                        .style('cursor', 'pointer')
+                    for (let j = 0; j < node1Neighbor12.length; j++) {
+                        if (node1Neighbor1.includes(node1Neighbor12[j])) {
+                            gBottom.append('circle')
+                                .classed('temp', true)
+                                .attr('cx', j < Math.ceil(node1Neighbor12.length / 2) ? (30 + (j + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (j - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace))
+                                .attr('cy', 140 + centerY[j])
+                                .attr('r', sizeLinear2(nodes[node1Neighbor12[j] - 1].degree))
+                                .transition()
+                                .duration(200)
+                                .attr('stroke', green[4])
+                                .attr('stroke-width', 3)
+                        }
+                    }
+                })
+                    .on('mouseout', function () {
+                        gBottom.selectAll('.temp').remove()
+                    })
+                path12.on('mouseover', function () {
+                    d3.select(this)
+                        .style('cursor', 'pointer')
+                    for (let j = 0; j < node1Neighbor12.length; j++) {
+                        if (node1Neighbor2.includes(node1Neighbor12[j])) {
+                            gBottom.append('circle')
+                                .classed('temp', true)
+                                .attr('cx', j < Math.ceil(node1Neighbor12.length / 2) ? (30 + (j + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (j - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace))
+                                .attr('cy', 140 + centerY[j])
+                                .attr('r', sizeLinear2(nodes[node1Neighbor12[j] - 1].degree))
+                                .transition()
+                                .duration(200)
+                                .attr('stroke', green[4])
+                                .attr('stroke-width', 3)
+                        }
+                    }
+                })
+                    .on('mouseout', function () {
+                        gBottom.selectAll('.temp').remove()
+                    })
+                path13.on('mouseover', function () {
+                    d3.select(this)
+                        .style('cursor', 'pointer')
+                    for (let j = 0; j < node1Neighbor3.length; j++) {
+                        gBottom.append('circle')
+                            .classed('temp', true)
+                            .attr('cx', j < Math.ceil(node1Neighbor3.length / 2) ? (30 + (j + 1) * node1LeftSpace) : (width / 2 + 21 + sizeLinear1(nodes[node1 - 1].degree) + (j - Math.ceil(node1Neighbor3.length / 2) + 1) * node1RightSpace))
+                            .attr('cy', 140 - node1HeightLinear(node1Neighbor3Distance[j]))
+                            .attr('r', sizeLinear2(nodes[node1Neighbor3[j] - 1].degree))
+                            .transition()
+                            .duration(200)
+                            .attr('stroke', green[4])
+                            .attr('stroke-width', 3)
+                    }
+                })
+                    .on('mouseout', function () {
+                        gBottom.selectAll('.temp').remove()
+                    })
+                path21.on('mouseover', function () {
+                    d3.select(this)
+                        .style('cursor', 'pointer')
+                    for (let j = 0; j < node1Neighbor12.length; j++) {
+                        if (node1Neighbor1.includes(node1Neighbor12[j])) {
+                            gBottom.append('circle')
+                                .classed('temp', true)
+                                .attr('cx', j < Math.ceil(node1Neighbor12.length / 2) ? (30 + (j + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (j - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace))
+                                .attr('cy', 140 + centerY[j])
+                                .attr('r', sizeLinear2(nodes[node1Neighbor12[j] - 1].degree))
+                                .transition()
+                                .duration(200)
+                                .attr('stroke', green[4])
+                                .attr('stroke-width', 3)
+                        }
+                    }
+                })
+                    .on('mouseout', function () {
+                        gBottom.selectAll('.temp').remove()
+                    })
+                path22.on('mouseover', function () {
+                    d3.select(this)
+                        .style('cursor', 'pointer')
+                    for (let j = 0; j < node1Neighbor12.length; j++) {
+                        if (node1Neighbor2.includes(node1Neighbor12[j])) {
+                            gBottom.append('circle')
+                                .classed('temp', true)
+                                .attr('cx', j < Math.ceil(node1Neighbor12.length / 2) ? (30 + (j + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (j - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace))
+                                .attr('cy', 140 + centerY[j])
+                                .attr('r', sizeLinear2(nodes[node1Neighbor12[j] - 1].degree))
+                                .transition()
+                                .duration(200)
+                                .attr('stroke', green[4])
+                                .attr('stroke-width', 3)
+                        }
+                    }
+                })
+                    .on('mouseout', function () {
+                        gBottom.selectAll('.temp').remove()
+                    })
+                path23.on('mouseover', function () {
+                    d3.select(this)
+                        .style('cursor', 'pointer')
+                    for (let j = 0; j < node2Neighbor3.length; j++) {
+                        gBottom.append('circle')
+                            .classed('temp', true)
+                            .attr('cx', j < Math.ceil(node2Neighbor3.length / 2) ? (30 + (j + 1) * node2LeftSpace) : (width / 2 + 21 + sizeLinear1(nodes[node2 - 1].degree) + (j - Math.ceil(node2Neighbor3.length / 2) + 1) * node2RightSpace))
+                            .attr('cy', 320 + node2HeightLinear(node2Neighbor3Distance[j]))
+                            .attr('r', sizeLinear2(nodes[node2Neighbor3[j] - 1].degree))
+                            .transition()
+                            .duration(200)
+                            .attr('stroke', green[4])
+                            .attr('stroke-width', 3)
+                    }
+                })
+                    .on('mouseout', function () {
+                        gBottom.selectAll('.temp').remove()
+                    })
                 if (algorithm === 'RA') {
                     analysisSvg.append('text')
                         .attr('x', i < Math.ceil(node1Neighbor12.length / 2) ? (30 + (i + 1) * centerLeftSpace) : (width / 2 + 21 + sizeLinear1(Math.max(nodes[node1 - 1].degree, nodes[node2 - 1].degree)) + (i - Math.ceil(node1Neighbor12.length / 2) + 1) * centerRightSpace))
